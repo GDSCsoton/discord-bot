@@ -8,6 +8,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import club.sotondsc.bot.Channels;
 import club.sotondsc.bot.Users;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class BadgeCommand extends Command {
   public JDA jda;
@@ -15,6 +16,12 @@ public class BadgeCommand extends Command {
   public BadgeCommand() {
     this.name = "badge";
     this.help = "Get your member badge by sharing your gdsc.community.dev profile url.\nExample: `!badge https://gdsc.community.dev/u/mpseav/#/about`";
+  }
+
+  @Override
+  public boolean isAllowed(TextChannel channel) {
+    var id = Double.parseDouble(channel.getId());
+    return id == Channels.botLand || id == Channels.botConfig;
   }
 
   @Override
